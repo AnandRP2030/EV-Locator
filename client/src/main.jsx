@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import Login from "./Pages/Login.jsx";
 import Signup from "./Pages/Signup.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
