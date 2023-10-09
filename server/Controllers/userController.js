@@ -1,24 +1,28 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const UserModel = require("../Models/user.model.js");
-const router = express.Router();
+const {UserModel} = require("../Models/user.model.js");
+const userRouter = express.Router();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const jwt = require("jsonwebtoken");
 
-router.post("/register", async (req, res) => {
+userRouter.get('/', (req, res) => {
+  res.send('user route works');
+})
+
+userRouter.post("/register", async (req, res) => {
   try {
     const { name, email, location, contact, password } = req.body;
-
     if (!name || !email || !location || !contact || !password) {
       return res.status(400).send("All fields are required");
     }
+   
     if (email) {
-      const existUser = await UserModel.findOne({ email });
+      const existUser = await UserModel.findOne({email});
       if (existUser) {
         return res.status(400).json({ message: "Email already used" });
       }
     }
-
+ 
     // hash the password
     const saltRounds = 10;
     const hashPassword = await bcrypt.hash(password, saltRounds);
@@ -36,7 +40,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+userRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -75,3 +79,5 @@ router.post("/login", async (req, res) => {
     res.status(500).send(error, "Server Error");
   }
 });
+
+module.exports = {userRouter};
