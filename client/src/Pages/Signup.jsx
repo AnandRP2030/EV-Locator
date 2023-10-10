@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./styles/login.css";
+import 'dotenv';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -23,7 +24,10 @@ const Signup = () => {
   const [validated, setValidated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
+  const [toastColor, setToastColor] = useState("dark");
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  console.log(BASE_URL);
   const handleChanges = (e) => {
     const value = e.target.value;
     switch (e.target.name) {
@@ -75,11 +79,10 @@ const Signup = () => {
       password,
     };
     axios
-      .post("http://localhost:3000/user/register", userData)
+      .post(`${BASE_URL}/user/register`, userData)
       .then((response) => {
-        console.log(response.status);
         if (response.status === 201) {
-          console.log("Registraion completed.");
+          setToastColor("success");
           setShowAlert(true);
           setAlertMsg("Registration completed.");
           setTimeout(() => {
@@ -91,6 +94,9 @@ const Signup = () => {
         console.log("error: => ", err);
         if (err.response.status === 400) {
           console.log("error: => ", err.response.data.message);
+          setToastColor("danger");
+          setShowAlert(true);
+          setAlertMsg(err.response.data.message);
         }
       });
   };
@@ -99,8 +105,11 @@ const Signup = () => {
     <>
       <ToastContainer position="top-center">
         <Toast
+          className="toast-msg"
+          bg={toastColor}
           onClose={() => setShowAlert(false)}
           show={showAlert}
+          animation={true}
           delay={2000}
           autohide
         >
@@ -181,7 +190,7 @@ const Signup = () => {
                 {isPasswordValid && (
                   <Form.Control.Feedback>
                     {" "}
-                    Password is strong.
+                    Password is strong ✅.
                   </Form.Control.Feedback>
                 )}
                 <Form.Control.Feedback type="invalid">

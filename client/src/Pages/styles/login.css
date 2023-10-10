@@ -1,3 +1,6 @@
+.toast-msg {
+  color: white;
+}
 .login-page {
   background-color: #bddaf0;
   width: 100%;
@@ -6,8 +9,6 @@
   justify-content: center;
   align-content: center;
   align-items: center;
-
-  /* flex-direction: column; */
 }
 
 .trapezoid-box {
@@ -138,9 +139,3 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-
-/* alert-msg  */
-.alert-msg {  
-  color: rgb(210, 20, 20);
-  z-index: 3;
-}
