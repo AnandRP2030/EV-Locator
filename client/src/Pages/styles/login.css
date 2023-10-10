@@ -130,3 +130,17 @@
 .remember-check-box {
   color: #0073b6;
 }
+
+/* remove arrow from number input  */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* alert-msg  */
+.alert-msg {  
+  color: rgb(210, 20, 20);
+  z-index: 3;
+}
