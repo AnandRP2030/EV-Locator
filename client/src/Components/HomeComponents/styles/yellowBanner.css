@@ -2,7 +2,7 @@
   background-color: #ceff1b;
   color: black;
   border: 3px solid black;
-  width: 100%;
+  width: 700%;
   height: 50px;
   display: flex;
   justify-content: space-around;
@@ -14,7 +14,7 @@
 
 @keyframes bannerSlide {
   0% {
-    transform: translateX(10%);
+    transform: translateX(0%);
   }
   100% {
     transform: translateX(-100%);
@@ -26,11 +26,11 @@
   position: absolute;
   top: 0;
   left: 100%;
-  width: 100%;
+  width: 200%;
   white-space: nowrap;
-  animation: bannerSlide 20s linear infinite;
+  animation: bannerSlide 100s linear infinite;
 }
 
 .banner-animation {
-  animation: bannerSlide 20s linear infinite;
+  animation: bannerSlide 100s linear infinite;
 }

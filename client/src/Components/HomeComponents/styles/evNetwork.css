@@ -1,0 +1,30 @@
+.ev-network {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding-top: 50px;
+  box-sizing: border-box;
+  background-color: #ebeff1;
+  /* background-color: red; */
+  margin-bottom: 50px;
+}
+.ev-network > h1 {
+  color: black;
+  font-weight: 900;
+  font-size: 25px;
+}
+
+.ev-network > hr {
+  height: 2px;
+  background-color: black;
+  width: 4%;
+  margin: auto;
+  opacity: 1;
+}
+
+.ev-network img {
+    width: 60vw;
+    height: auto;
+    margin: 20px;
+    margin-top: 0;
+}
