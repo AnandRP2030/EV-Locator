@@ -24,7 +24,6 @@ const Login = () => {
   const [toastColor, setToastColor] = useState("dark");
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  console.log(BASE_URL)
 
   const handleChanges = (e) => {
     const value = e.target.value;
@@ -122,7 +121,7 @@ const Login = () => {
             />
           </Container>
           <Container className="login-form-container">
-            <h1 className="login-welcome">Login</h1>
+            <h1 className="login-welcome">Log in</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control
@@ -163,7 +162,7 @@ const Login = () => {
               </Form.Group>
               <p className="bottom-caption">
                 Need an account?{" "}
-                <span onClick={() => navigate("/signup")}> Signup </span>
+                <span onClick={() => navigate("/signup")}> Sign up </span>
               </p>
 
               <Button type="submit" className="login-btn">

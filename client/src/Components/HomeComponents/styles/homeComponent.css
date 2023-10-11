@@ -1,0 +1,70 @@
+/* home component  */
+.home-welcome-container {
+    margin: 20px;
+    margin-top: 57px;
+    background-color: #e0f1f8;
+    height: 500px;
+    width: 100%;
+    display: flex;
+}
+
+.home-welcome-left-container {
+    width: 120%;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.home-welcome-left-container>div {
+    position: relative;
+    top: 100px;
+
+}
+.home-welcome-left-container>div h1 {
+    color: black;
+    font-size: 45px;
+    font-weight: 700;
+    margin-bottom: 20px;
+
+}
+
+.charging-word {
+    color: #1c8029;
+}
+
+.home-search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+
+.home-search-container .input-group {
+    width: 74%;
+    border: 1px solid black;
+    border-radius: 2px;
+    box-shadow: 3px 3px 2px;
+}
+.home-search-container button {
+    background-color: #ebce35;
+    border: 1px solid black;
+    height: 35px;
+    box-shadow: 3px 3px 2px;
+    width: 63px;
+    border-radius: 2px;
+}
+
+.home-search-container button:hover {
+    box-shadow: 0 0;
+}
+.home-welcome-img-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-welcome-img-div img{
+    width: 90%;
+    height: 330px;
+}
+
+/* yellow banner  */

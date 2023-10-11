@@ -74,10 +74,10 @@
 .login-form-container form {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
-.login-form-container form input {
+.login-form-container form input, .login-form-container form select {
   background-color: #eaf3f9;
   color: #0073b6;
 }

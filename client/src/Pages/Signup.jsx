@@ -12,11 +12,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./styles/login.css";
-import 'dotenv';
+import "dotenv";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [role, setRole] = useState("user");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
@@ -27,12 +28,15 @@ const Signup = () => {
   const [toastColor, setToastColor] = useState("dark");
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  console.log(BASE_URL);
+
   const handleChanges = (e) => {
     const value = e.target.value;
     switch (e.target.name) {
       case "name":
         setName(value);
+        break;
+      case "role":
+        setRole(value);
         break;
       case "email":
         setEmail(value);
@@ -63,6 +67,7 @@ const Signup = () => {
     if (
       form.checkValidity() === true &&
       name &&
+      role &&
       email &&
       phoneNumber &&
       password
@@ -74,10 +79,12 @@ const Signup = () => {
   const sendToServer = () => {
     const userData = {
       name,
+      role,
       email,
       phoneNumber,
       password,
     };
+    console.log("reo", userData);
     axios
       .post(`${BASE_URL}/user/register`, userData)
       .then((response) => {
@@ -88,6 +95,8 @@ const Signup = () => {
           setTimeout(() => {
             navigate("/login");
           }, 2400);
+        } else {
+          console.log("error: => ", response);
         }
       })
       .catch((err) => {
@@ -128,7 +137,7 @@ const Signup = () => {
             />
           </Container>
           <Container className="login-form-container">
-            <h1 className="login-welcome">Signup</h1>
+            <h1 className="login-welcome">Sign up</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group className="mb-2" controlId="validationCustom01">
                 <Form.Control
@@ -138,6 +147,7 @@ const Signup = () => {
                   onChange={handleChanges}
                   name="name"
                   value={name}
+                  size="sm"
                 />
                 <Form.Control.Feedback type="invalid">
                   {" "}
@@ -148,6 +158,18 @@ const Signup = () => {
                   Looks Good {name}!.
                 </Form.Control.Feedback>
               </Form.Group>
+              <Form.Group className="mb-2" controlId="formBasicSelect">
+                <Form.Select
+                  size="sm"
+                  onChange={handleChanges}
+                  value={role}
+                  name="role"
+                >
+                  <option value="user">User</option>
+                  <option value="ev-station">EV Station</option>
+                  <option value="admin">Admin</option>
+                </Form.Select>
+              </Form.Group>
               <Form.Group className="mb-2" controlId="formBasicEmail">
                 <Form.Control
                   required
@@ -156,6 +178,7 @@ const Signup = () => {
                   onChange={handleChanges}
                   name="email"
                   value={email}
+                  size="sm"
                 />
                 <Form.Control.Feedback type="invalid">
                   Email is required.
@@ -171,6 +194,7 @@ const Signup = () => {
                     onChange={handleChanges}
                     name="phoneNumber"
                     value={phoneNumber}
+                    size="sm"
                   />
                   <Form.Control.Feedback type="invalid">
                     Phone Number is required.
@@ -185,6 +209,7 @@ const Signup = () => {
                   placeholder="Password"
                   onChange={handleChanges}
                   name="password"
+                  size="sm"
                   value={password}
                 />
                 {isPasswordValid && (
