@@ -11,9 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "dotenv";
+import {useContext} from 'react';
+import {LoginContext} from '../Context/LoginContext';
 import "./styles/login.css";
 
 const Login = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,8 +25,8 @@ const Login = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
-
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  
+  const {setIsUserLogin} = useContext(LoginContext);
 
   const handleChanges = (e) => {
     const value = e.target.value;
@@ -68,7 +71,7 @@ const Login = () => {
       .then((response) => {
         console.log("res", response.data);
         if (response.status === 200) {
-          console.log("login completed.");
+          setIsUserLogin(true);
           setToastColor("success");
           setShowAlert(true);
           setAlertMsg("Login Successful.");

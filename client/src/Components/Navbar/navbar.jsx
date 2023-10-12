@@ -2,14 +2,18 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Image from "react-bootstrap/Image";
 import Stack from "react-bootstrap/Stack";
+import { useState } from "react";
 import { FaChargingStation } from "react-icons/fa6";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../../Context/LoginContext";
+import { useContext } from "react";
 import "./navbar.css";
+import { Toast, ToastContainer } from "react-bootstrap";
 
 const NavbarComponent = () => {
-  const [userLogin, setUserLogin] = useState(false);
+  const { isUserLogin, setIsUserLogin } = useContext(LoginContext);
+  const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
   const redirectSignup = () => {
     navigate("/signup");
@@ -23,12 +27,16 @@ const NavbarComponent = () => {
   };
 
   const userLogout = () => {
-    setUserLogin(false);
-    console.log("logout");
+    setIsUserLogin(false);
+    navigate("/login");
   };
 
   const redirectStation = () => {
-    navigate("/stations");
+    if (isUserLogin) {
+      navigate("/stations");
+    } else {
+      setShowAlert(true);
+    }
   };
 
   return (
@@ -44,11 +52,11 @@ const NavbarComponent = () => {
           </Navbar.Brand>
         </Nav>
         <Nav className="nav-right">
-          <Nav.Link onClick={redirectStation}>
+          <div className="find-stations" onClick={redirectStation}>
             Find stations <FaChargingStation className="charging-icon" />
-          </Nav.Link>
+          </div>
 
-          {userLogin ? (
+          {isUserLogin ? (
             <Nav.Link>
               <Button onClick={userLogout} className="login-btn-2">
                 {" "}
@@ -77,6 +85,19 @@ const NavbarComponent = () => {
           )}
         </Nav>
       </Navbar>
+      <ToastContainer position="top-center">
+        <Toast
+          className="toast-msg"
+          bg="primary"
+          onClose={() => setShowAlert(false)}
+          show={showAlert}
+          animation={true}
+          delay={2000}
+          autohide
+        >
+          <Toast.Body>Login First.</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </>
   );
 };

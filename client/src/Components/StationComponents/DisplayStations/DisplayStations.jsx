@@ -1,5 +1,6 @@
 import { InputGroup, Form } from "react-bootstrap";
 import { FaSearchLocation } from "react-icons/fa";
+import { Toast, ToastContainer } from "react-bootstrap";
 import StationTable from "../../StationTable/StationTable";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -7,8 +8,10 @@ import "./displayStations.css";
 const Displaystations = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [allStations, setAllStations] = useState([]);
-  const [activeStation, setActiveStation] = useState("All-stations");
   const [searchStation, setSearchStation] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [toastColor, setToastColor] = useState("dark");
 
   const getAllStations = () => {
     axios.get(`${BASE_URL}/ev/all-stations`).then((res) => {
@@ -37,6 +40,22 @@ const Displaystations = () => {
       });
     }
   };
+
+  const deleteStation = (_id) => {
+    axios
+      .delete(`${BASE_URL}/ev/delete/${_id}`)
+      .then((res) => {
+        const stationName = res.data.data.stationName;
+        getAllStations();
+        setShowAlert(true);
+        setToastColor("danger");
+        setAlertMsg(stationName + " Station Deleted Successfully.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="display-stations">
       <div className="station-table-container">
@@ -79,14 +98,27 @@ const Displaystations = () => {
         </div>
         {allStations.length === 0 ? (
           <>
-            <div className="no-stations">
-              {" "}
-              Sorry EV Stations are Not Found.
-            </div>
+            <div className="no-stations"> Sorry EV Stations are Not Found.</div>
           </>
         ) : (
-          <StationTable allStations={allStations} />
+          <StationTable
+            allStations={allStations}
+            deleteStation={deleteStation}
+          />
         )}
+        <ToastContainer position="top-center">
+          <Toast
+            className="toast-msg"
+            bg={toastColor}
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            animation={true}
+            delay={2000}
+            autohide
+          >
+            <Toast.Body>{alertMsg}</Toast.Body>
+          </Toast>
+        </ToastContainer>
       </div>
     </div>
   );
