@@ -28,7 +28,7 @@ const createStation = async (req, res) => {
       pricePerHour,
     });
     await newEvStation.save();
-    res.status(201).send({ message: "Station created successfully" });
+    res.status(201).send({ message: "New Station created successfully." });
   } catch (error) {
     return res.status(500).send("Server Error");
   }
