@@ -105,7 +105,7 @@
 } 
 .table-search-container>div:nth-child(2) {
     display: flex;
-    width: 60%;
+    width: 27%;
     margin-left: 10px;
 }
 .table-search-container>div:nth-child(2) select {

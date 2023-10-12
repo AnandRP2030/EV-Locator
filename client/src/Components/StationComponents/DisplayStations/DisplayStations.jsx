@@ -1,4 +1,4 @@
-import { InputGroup, Form, Modal, Button } from "react-bootstrap";
+import { InputGroup, Form } from "react-bootstrap";
 import { FaSearchLocation } from "react-icons/fa";
 import { Toast, ToastContainer } from "react-bootstrap";
 import StationTable from "../../StationTable/StationTable";
@@ -16,7 +16,8 @@ const Displaystations = () => {
   const [showModel, setShowModel] = useState(false);
   const getAllStations = () => {
     axios.get(`${BASE_URL}/ev/all-stations`).then((res) => {
-      setAllStations(res.data.data);
+      const reversedData = res.data.data.reverse();
+      setAllStations(reversedData);
     });
   };
 
@@ -61,6 +62,20 @@ const Displaystations = () => {
     setShowModel(true);
   };
 
+  const sortByPrice = (e) => {
+    if (e.target.value === "high") {
+      const sortedData = [...allStations].sort((a, b) => {
+        return b.pricePerHour - a.pricePerHour;
+      });
+      setAllStations(sortedData);
+    } else if (e.target.value === "low") {
+      const sortedData = [...allStations].sort((a, b) => {
+        return a.pricePerHour - b.pricePerHour;
+      });
+      setAllStations(sortedData);
+    }
+  };
+
   return (
     <>
       <div className="display-stations">
@@ -90,15 +105,10 @@ const Displaystations = () => {
               />
             </InputGroup>
             <div className="mb-3">
-              <Form.Select>
-                <option value="KL">Filter By Location</option>
-                <option value="KL">Kerala</option>
-                <option value="TN">Tamil Nadu</option>
-              </Form.Select>
-              <Form.Select>
-                <option value="KL">Sort by Price</option>
-                <option value="KL">Low Price</option>
-                <option value="TN">High Price</option>
+              <Form.Select onChange={sortByPrice}>
+                <option value="">Sort by Price</option>
+                <option value="low">Low to High</option>
+                <option value="high">High to Low</option>
               </Form.Select>
             </div>
           </div>

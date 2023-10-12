@@ -49,20 +49,27 @@ const MyModel = ({
     };
 
     sendToServer(stationData);
-
-    handleClose();
   };
   const sendToServer = (stationData) => {
     try {
-      axios.post(`${BASE_URL}/ev/create`, stationData).then((res) => {
-        console.log("res", res);
-        if (res.status === 201) {
-          getAllStations();
-          setShowAlert(true);
-          setToastColor("success");
-          setAlertMsg(res.data.message);
-        }
-      });
+      axios
+        .post(`${BASE_URL}/ev/create`, stationData)
+        .then((res) => {
+          console.log("res", res);
+          if (res.status === 201) {
+            getAllStations();
+            setShowAlert(true);
+            setToastColor("success");
+            setAlertMsg(res.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log("Error on add new station", error);
+        })
+        .finally(() => {
+          handleClose();
+          handleReset();
+        });
     } catch (error) {
       console.log("Error on add new station", error);
     }
