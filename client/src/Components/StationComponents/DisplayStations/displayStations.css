@@ -67,16 +67,6 @@
     letter-spacing: 1px;
 }
 
-/* .table-top-buttons > div {
-    cursor: pointer;
-    padding: 5px;
-    border-bottom: 7px solid transparent;
-}
-.table-top-buttons>div:hover {
-    border-bottom: 7px solid #1c7ebb;
-
-} */
-
 .table-top-buttons > div {
     position: relative;
     cursor: pointer;
@@ -126,4 +116,11 @@
     text-align: center;
     font-size: 25px;
     font-weight: 800;
+}
+
+/* model  */
+.model-heading {
+    color: #009eff;
+    font-weight: 700;
+    letter-spacing: 1px;
 }

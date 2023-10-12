@@ -84,7 +84,6 @@ const Signup = () => {
       phoneNumber,
       password,
     };
-    console.log("reo", userData);
     axios
       .post(`${BASE_URL}/user/register`, userData)
       .then((response) => {
