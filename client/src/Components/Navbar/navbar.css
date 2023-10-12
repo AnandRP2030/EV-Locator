@@ -3,6 +3,11 @@
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     width:100%;
     z-index: 10;
+    box-sizing: border-box;
+    /* background-color: yellow; */
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 40px;
 }
 
 .my-nav-container {
@@ -16,11 +21,10 @@
 }
 
 .nav-right {
-    position: absolute;
-    right: -108px;
     width: 32vw;
     justify-content: space-around;
     align-items: center;
+    /* background-color: red; */
 }
 
 .charging-icon {
@@ -59,4 +63,7 @@
     color: black;
     background-color: white;
 }
-    
+
+.navbar-brand-logo {
+    cursor: pointer;
+}

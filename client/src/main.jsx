@@ -4,7 +4,8 @@ import App from "./App.jsx";
 import "./index.css";
 import Login from "./Pages/Login.jsx";
 import Signup from "./Pages/Signup.jsx";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Station from "./Pages/Station.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/stations" element={<Station />}></Route>
         <Route path="/*" element={<h1> 404 </h1>}>
           {" "}
         </Route>

@@ -1,0 +1,17 @@
+.book-slot-btn {
+    background: #00ff06;
+    color: #fffefe;
+    border: none;
+    width: 124px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px black;
+    font-weight: 600;
+}
+.book-slot-btn:hover {
+    position: relative;
+    top: 1px ;
+    left: 1px ;
+    box-shadow: 0 0;
+}

@@ -6,8 +6,8 @@ import {
   AiFillTwitterSquare,
   AiFillGoogleCircle,
 } from "react-icons/ai";
-
 import "./styles/footer.css";
+
 const Footer = () => {
   const iconStyle = {
     fontSize: "25px",
@@ -34,12 +34,24 @@ const Footer = () => {
           <p>Links</p>
           <p>Home</p>
           <p>Support</p>
-          <p>About us</p>
+          <p>About </p>
+        </Stack>
+        <Stack className="my-stack">
+          <p>Services</p>
+          <p>Insurance</p>
+          <p>Legal</p>
+          <p>Site Map</p>
+        </Stack>
+        <Stack className="my-stack">
+          <p>About </p>
+          <p>Accessability</p>
+          <p>Enviornment</p>
+          <p>Branches</p>
         </Stack>
         <Stack className="my-stack">
           <p>Contact us</p>
           <p>(+91) 123-456-7890</p>
-          <p>evlocator.@gmail.com</p>
+          <p>evlocator@gmail.com</p>
         </Stack>
         <Stack className="download-app-stack my-stack">
           <p>Download App</p>
