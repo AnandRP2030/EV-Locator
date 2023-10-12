@@ -8,11 +8,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  location: {
-    type: String,
-    required: true,
-  },
-  contact: {
+  phoneNumber: {
     type: Number,
     requird: true,
   },
@@ -20,6 +16,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    default: "user",
+  }
 });
 
 const UserModel = mongoose.model("UserModel", userSchema);
