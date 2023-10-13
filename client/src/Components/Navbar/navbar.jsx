@@ -27,6 +27,8 @@ const NavbarComponent = () => {
   };
 
   const userLogout = () => {
+    localStorage.removeItem("user-data");
+    localStorage.removeItem("Login");
     setIsUserLogin(false);
     navigate("/login");
   };

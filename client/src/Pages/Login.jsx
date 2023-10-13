@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "dotenv";
-import {useContext} from 'react';
-import {LoginContext} from '../Context/LoginContext';
+import { useContext } from "react";
+import { LoginContext } from "../Context/LoginContext";
 import "./styles/login.css";
 
 const Login = () => {
@@ -25,8 +25,7 @@ const Login = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
-  
-  const {setIsUserLogin} = useContext(LoginContext);
+  const { setIsUserLogin, setUserInfo } = useContext(LoginContext);
 
   const handleChanges = (e) => {
     const value = e.target.value;
@@ -48,14 +47,12 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-
     setValidated(true);
     if (!isPasswordValid) {
       setShowAlert(true);
       setAlertMsg("Password must be at least 6 characters long.");
       return;
     }
-
     if (form.checkValidity() === true && email && password) {
       sendToServer();
     }
@@ -69,9 +66,21 @@ const Login = () => {
     axios
       .post(`${BASE_URL}/user/login`, userData)
       .then((response) => {
-        console.log("res", response.data);
         if (response.status === 200) {
+          const { token } = response.data;
+          const { email, name, phoneNumber, role } = response.data.user;
+          const userLoginData = {
+            token,
+            email,
+            name,
+            phoneNumber,
+            role,
+          };
+          setUserInfo(userLoginData);
           setIsUserLogin(true);
+          localStorage.setItem("Login", true);
+          localStorage.setItem("user-data", JSON.stringify(userLoginData));
+
           setToastColor("success");
           setShowAlert(true);
           setAlertMsg("Login Successful.");

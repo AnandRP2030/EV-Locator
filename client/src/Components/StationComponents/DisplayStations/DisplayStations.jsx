@@ -15,6 +15,7 @@ const Displaystations = () => {
   const [toastColor, setToastColor] = useState("dark");
   const [showModel, setShowModel] = useState(false);
   const getAllStations = () => {
+    setSearchStation("");
     axios.get(`${BASE_URL}/ev/all-stations`).then((res) => {
       const reversedData = res.data.data.reverse();
       setAllStations(reversedData);
@@ -25,12 +26,41 @@ const Displaystations = () => {
     getAllStations();
   }, []);
 
+  const bookSlot = (id) => {
+    try {
+      axios
+        .patch(`${BASE_URL}/ev/book-slot/${id}`)
+        .then((res) => {
+          if (res.status === 200) {
+            getAllStations();
+            setShowAlert(true);
+            setToastColor("success");
+            setAlertMsg(res.data.message);
+          } else {
+            console.log("Check book slot functin");
+          }
+        })
+        .catch((err) => {
+          setShowAlert(true);
+          setToastColor("danger");
+          setAlertMsg(err.response.data.message);
+        });
+    } catch (error) {
+      console.log("Error on Book-slot", error);
+    }
+  };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      if (searchStation === "") {
-        getAllStations();
-        return;
-      }
+      getStationsByLocation();
+    }
+  };
+
+  const getStationsByLocation = () => {
+    if (searchStation === "") {
+      getAllStations();
+      return;
+    }
+    try {
       axios.get(`${BASE_URL}/ev/location/${searchStation}`).then((res) => {
         console.log(res.data.data.length, "res");
         if (res.data.data.length === 0) {
@@ -40,6 +70,8 @@ const Displaystations = () => {
           setAllStations(res.data.data);
         }
       });
+    } catch (error) {
+      console.log("Error on get stations by location", error);
     }
   };
 
@@ -85,14 +117,16 @@ const Displaystations = () => {
             <button onClick={handleAddStation}>Add New Station</button>
           </div>
           <div className="table-top-buttons">
-            <div>All Stations</div>
-            <div>Available Stations</div>
-            <div>Not Available</div>
+            <div onClick={getAllStations}>All Stations</div>
           </div>
 
           <div className="table-search-container">
             <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">
+              <InputGroup.Text
+                id="basic-addon1"
+                onClick={getStationsByLocation}
+                className="searchIcon"
+              >
                 <FaSearchLocation />
               </InputGroup.Text>
               <Form.Control
@@ -123,6 +157,7 @@ const Displaystations = () => {
             <StationTable
               allStations={allStations}
               deleteStation={deleteStation}
+              bookSlot={bookSlot}
             />
           )}
           <ToastContainer position="top-center">

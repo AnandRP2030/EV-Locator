@@ -18,10 +18,13 @@ const HomeWelcome = () => {
         </div>
         <div className="home-search-container">
           <InputGroup>
-            <InputGroup.Text> 
+            <InputGroup.Text>
               <FaLocationDot />
             </InputGroup.Text>
-            <Form.Control type="text" placeholder="Search Nearby Charging Point." />
+            <Form.Control
+              type="text"
+              placeholder="Search Nearby Charging Point."
+            />
           </InputGroup>
           <button>Search</button>
         </div>

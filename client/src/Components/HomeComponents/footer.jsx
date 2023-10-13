@@ -15,7 +15,7 @@ const Footer = () => {
   return (
     <div className="my-footer">
       <div>
-        <Stack >
+        <Stack>
           <h4 className="footer-logo">EV Locator </h4>
           <InputGroup className="footer-mail">
             <InputGroup.Text>

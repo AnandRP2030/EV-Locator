@@ -1,7 +1,9 @@
 import Table from "react-bootstrap/Table";
 import PropTypes from "prop-types";
+
 import "./stationTable.css";
-const StationTable = ({ allStations, deleteStation }) => {
+
+const StationTable = ({ allStations, deleteStation, bookSlot }) => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -27,7 +29,14 @@ const StationTable = ({ allStations, deleteStation }) => {
               <td>{elem.availablePorts}</td>
               <td>{elem.pricePerHour}</td>
               <td>
-                <button className="book-slot-btn">Book Slot</button>
+                <button
+                  onClick={() => {
+                    bookSlot(elem._id);
+                  }}
+                  className="book-slot-btn"
+                >
+                  Book Slots
+                </button>
               </td>
               <td>
                 <button
@@ -49,7 +58,8 @@ const StationTable = ({ allStations, deleteStation }) => {
 
 StationTable.propTypes = {
   allStations: PropTypes.array,
-  deleteStation: PropTypes.func
+  deleteStation: PropTypes.func,
+  bookSlot: PropTypes.func,
 };
 
 export default StationTable;
