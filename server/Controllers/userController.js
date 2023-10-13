@@ -51,7 +51,6 @@ const loginUser = async (req, res) => {
         .send({ message: "Email or password is incorrect" });
     }
 
-    // geneate token
     const token = jwt.sign(
       {
         userId: user._id,

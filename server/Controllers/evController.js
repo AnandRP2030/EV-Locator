@@ -95,10 +95,38 @@ const deleteStationById = async (req, res) => {
   }
 };
 
+const bookSlot = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const evStation = await EvModel.findById(id);
+    console.log("iid", evStation);
+    if (!evStation) {
+      return res.status(404).send({ message: "EV Station Not Found" });
+    }
+    if (evStation.availablePorts > 0) {
+      evStation.availablePorts--;
+      await evStation.save();
+      return res.status(200).send({
+        data: evStation,
+        message: `${evStation.stationName} Station Booked Successfully.`,
+      });
+    } else {
+      return res
+        .status(400)
+        .send({
+          message: `${evStation.stationName} Station is Not Available Right Now.`,
+        });
+    }
+  } catch (error) {
+    return res.status(500).send("Server Error");
+  }
+};
+
 module.exports = {
   createStation,
   getAllStations,
   getStationById,
   getStationsByLocation,
   deleteStationById,
+  bookSlot,
 };
