@@ -8,7 +8,7 @@ import {
   Toast,
   ToastContainer,
 } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./styles/login.css";
@@ -26,6 +26,7 @@ const Signup = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
+  const [pcSize, setPcSize] = useState(true);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -52,6 +53,21 @@ const Signup = () => {
         break;
     }
   };
+
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setPcSize(false);
+    } else {
+      setPcSize(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -127,14 +143,16 @@ const Signup = () => {
 
       <Container fluid className="login-page">
         <Container fluid className="trapezoid-box"></Container>
-
         <Container fluid className="login-container">
-          <Container className="img-section">
-            <Image
-              src="https://www.cyient.com/hubfs/MicrosoftTeams-image_%2811%29.png"
-              alt="img"
-            />
-          </Container>
+          {pcSize && (
+            <Container className="img-section">
+              <Image
+                src="https://www.cyient.com/hubfs/MicrosoftTeams-image_%2811%29.png"
+                alt="img"
+              />
+            </Container>
+          )}
+
           <Container className="login-form-container">
             <h1 className="login-welcome">Sign up</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -227,20 +245,24 @@ const Signup = () => {
               </p>
               <Button type="submit" className="login-btn">
                 Signup
-              </Button>
+              </Button> 
             </Form>
 
-            <Stack className="footer" direction="horizontal" gap={3}>
-              <div>Copyright Policy</div>
-              <div>Privacy Policy</div>
-              <div>Send feedback</div>
-            </Stack>
-            <Stack className="footer-2" direction="horizontal" gap={3}>
-              <div>User</div>
-              <div>Privacy Policy</div>
-              <div>Send feedback</div>
-              <div className="ms-auto credit">EV Locator © 2023</div>
-            </Stack>
+            {pcSize && (
+              <div>
+                <Stack className="footer" direction="horizontal" gap={3}>
+                  <div>Copyright Policy</div>
+                  <div>Privacy Policy</div>
+                  <div>Send feedback</div>
+                </Stack>
+                <Stack className="footer-2" direction="horizontal" gap={3}>
+                  <div>User</div>
+                  <div>Privacy Policy</div>
+                  <div>Send feedback</div>
+                  <div className="ms-auto credit">EV Locator © 2023</div>
+                </Stack>
+              </div>
+            )}
           </Container>
         </Container>
       </Container>

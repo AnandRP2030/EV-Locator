@@ -8,7 +8,8 @@ import {
   Toast,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import axios from "axios";
 import "dotenv";
 import { useContext } from "react";
@@ -26,6 +27,22 @@ const Login = () => {
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
   const { setIsUserLogin, setUserInfo } = useContext(LoginContext);
+  const [pcSize, setPcSize] = useState(true);
+
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setPcSize(false);
+    } else {
+      setPcSize(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
 
   const handleChanges = (e) => {
     const value = e.target.value;
@@ -125,13 +142,15 @@ const Login = () => {
           className="trapezoid-box trapezoid-box-login"
         ></Container>
 
-        <Container fluid className="login-container ">
-          <Container className="img-section login-img-section">
-            <Image
-              src="https://www.omanobserver.om/omanobserver/uploads/images/2022/03/21/1948788.jpg"
-              alt="img"
-            />
-          </Container>
+        <Container fluid className="login-container">
+          {pcSize && (
+            <Container className="img-section login-img-section">
+              <Image
+                src="https://www.omanobserver.om/omanobserver/uploads/images/2022/03/21/1948788.jpg"
+                alt="img"
+              />
+            </Container>
+          )}
           <Container className="login-form-container">
             <h1 className="login-welcome">Log in</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -182,17 +201,21 @@ const Login = () => {
               </Button>
             </Form>
 
-            <Stack className="footer" direction="horizontal" gap={3}>
-              <div>Copyright Policy</div>
-              <div>Privacy Policy</div>
-              <div>Send feedback</div>
-            </Stack>
-            <Stack className="footer-2" direction="horizontal" gap={3}>
-              <div>User</div>
-              <div>Privacy Policy</div>
-              <div>Send feedback</div>
-              <div className="ms-auto credit">EV Locator © 2023</div>
-            </Stack>
+            {pcSize && (
+              <div>
+                <Stack className="footer" direction="horizontal" gap={3}>
+                  <div>Copyright Policy</div>
+                  <div>Privacy Policy</div>
+                  <div>Send feedback</div>
+                </Stack>
+                <Stack className="footer-2" direction="horizontal" gap={3}>
+                  <div>User</div>
+                  <div>Privacy Policy</div>
+                  <div>Send feedback</div>
+                  <div className="ms-auto credit">EV Locator © 2023</div>
+                </Stack>
+              </div>
+            )}
           </Container>
         </Container>
       </Container>
