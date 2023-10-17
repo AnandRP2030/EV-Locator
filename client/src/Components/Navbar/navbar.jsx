@@ -8,13 +8,31 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../Context/LoginContext";
 import { useContext } from "react";
-import "./navbar.css";
 import { Toast, ToastContainer } from "react-bootstrap";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { useMediaQuery } from "react-responsive";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { Tooltip } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import "./navbar.css";
 
 const NavbarComponent = () => {
   const { isUserLogin, setIsUserLogin } = useContext(LoginContext);
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
+  const isLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+  const isTab = useMediaQuery({
+    query: "(min-width: 768px)",
+  });
+  const isMobile = useMediaQuery({
+    query: "(max-width: 570px)",
+  });
+
+  // console.log("tab", isTab, "lap", isLaptop, "mobile", isMobile);
+  console.log("mobile", isMobile);
+
   const redirectSignup = () => {
     navigate("/signup");
   };
@@ -53,37 +71,47 @@ const NavbarComponent = () => {
             />
           </Navbar.Brand>
         </Nav>
-        <Nav className="nav-right">
-          <div className="find-stations" onClick={redirectStation}>
-            Find stations <FaChargingStation className="charging-icon" />
-          </div>
 
-          {isUserLogin ? (
-            <Nav.Link>
-              <Button onClick={userLogout} className="login-btn-2">
-                {" "}
-                Log out
-              </Button>
-            </Nav.Link>
+        <Nav className="nav-right">
+          {!isMobile ? (
+            <>
+              <div className="find-stations" onClick={redirectStation}>
+                Find stations <FaChargingStation className="charging-icon" />
+              </div>
+
+              {isUserLogin ? (
+                <Nav.Link>
+                  <Button onClick={userLogout} className="login-btn-2">
+                    {" "}
+                    Log out
+                  </Button>
+                </Nav.Link>
+              ) : (
+                <Stack direction="horizontal" className="nav-btns">
+                  <Nav.Link>
+                    <Button
+                      onClick={redirectSignup}
+                      className="signin-btn"
+                      variant="outline-dark"
+                    >
+                      {" "}
+                      Sign up
+                    </Button>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <Button onClick={redirectLogin} className="login-btn-2">
+                      {" "}
+                      Log in
+                    </Button>
+                  </Nav.Link>
+                </Stack>
+              )}
+            </>
           ) : (
-            <Stack direction="horizontal" className="nav-btns">
-              <Nav.Link>
-                <Button
-                  onClick={redirectSignup}
-                  className="signin-btn"
-                  variant="outline-dark"
-                >
-                  {" "}
-                  Sign up
-                </Button>
-              </Nav.Link>
-              <Nav.Link>
-                <Button onClick={redirectLogin} className="login-btn-2">
-                  {" "}
-                  Log in
-                </Button>
-              </Nav.Link>
-            </Stack>
+            <Button onClick={redirectLogin} className="login-btn-2">
+              {" "}
+              Log in
+            </Button>
           )}
         </Nav>
       </Navbar>

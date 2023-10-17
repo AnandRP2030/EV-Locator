@@ -6,8 +6,10 @@ import Signup from "./Pages/Signup";
 import Station from "./Pages/Station";
 import { LoginContext } from "./Context/LoginContext";
 import { useState } from "react";
-
+import NavbarComponent from "./Components/Navbar/navbar";
+import ScreenTest from "./Pages/screen-size";
 import "./App.css";
+
 function App() {
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({
@@ -29,6 +31,9 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/stations" element={<Station />}></Route>
+            <Route path="/navbar" element={<NavbarComponent />} />
+            <Route path="/test" element={<ScreenTest />} />
+            <Route />
             <Route
               path="/*"
               element={

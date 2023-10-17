@@ -20,7 +20,7 @@
 }
 
 .nav-right {
-    width: 32vw;
+    width: 41%;
     justify-content: space-around;
     align-items: center;
     /* background-color: red; */
@@ -67,4 +67,20 @@
 
 .navbar-brand-logo {
     cursor: pointer;
+}
+
+/* media query  */
+@media screen and (max-width: 768px) {
+    .nav-right {
+        width: 70%;
+    }
+    
+
+}
+
+@media screen and (max-width: 576px) {
+    .nav-right {
+        width: 20%;
+        margin-right: 20px;
+    }   
 }
