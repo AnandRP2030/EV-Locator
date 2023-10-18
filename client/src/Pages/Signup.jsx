@@ -109,7 +109,7 @@ const Signup = () => {
           setAlertMsg("Registration completed.");
           setTimeout(() => {
             navigate("/login");
-          }, 2400);
+          }, 24000);
         } else {
           console.log("error: => ", response);
         }

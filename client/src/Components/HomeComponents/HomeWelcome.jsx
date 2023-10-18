@@ -2,14 +2,23 @@ import Container from "react-bootstrap/esm/Container";
 import Image from "react-bootstrap/Image";
 import { InputGroup, Form } from "react-bootstrap";
 import { FaLocationDot } from "react-icons/fa6";
+import { useMediaQuery } from "react-responsive";
 import "./styles/homeComponent.css";
+
 const HomeWelcome = () => {
+  // const [textContent, setText]
+  const isTab = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+
+  console.log("isTab", isTab);
+
   return (
     <div className="home-welcome-container">
       <Container className="home-welcome-left-container">
         <div>
           <h1>
-            Power up Your Electric <br /> Vehicle with Our Convenient <br />{" "}
+            Power up Your Electric <br/> Vehicle with Our Convenient <br/> {" "}
             <span className="charging-word">Charging</span> Solutions
           </h1>
           <p>

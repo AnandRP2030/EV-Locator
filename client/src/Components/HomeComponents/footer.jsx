@@ -6,12 +6,20 @@ import {
   AiFillTwitterSquare,
   AiFillGoogleCircle,
 } from "react-icons/ai";
+import { useMediaQuery } from "react-responsive";
 import "./styles/footer.css";
 
 const Footer = () => {
   const iconStyle = {
     fontSize: "25px",
   };
+  const smallLaptop = useMediaQuery({
+    query: "(max-width: 1000px)",
+  });
+  const tabSize = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+  console.log("lap", smallLaptop);
   return (
     <div className="my-footer">
       <div>
@@ -30,29 +38,38 @@ const Footer = () => {
             <AiFillGoogleCircle style={iconStyle} />
           </div>
         </Stack>
-        <Stack className="my-stack">
-          <p>Links</p>
-          <p>Home</p>
-          <p>Support</p>
-          <p>About </p>
-        </Stack>
-        <Stack className="my-stack">
-          <p>Services</p>
-          <p>Insurance</p>
-          <p>Legal</p>
-          <p>Site Map</p>
-        </Stack>
-        <Stack className="my-stack">
-          <p>About </p>
-          <p>Accessability</p>
-          <p>Enviornment</p>
-          <p>Branches</p>
-        </Stack>
-        <Stack className="my-stack">
-          <p>Contact us</p>
-          <p>(+91) 123-456-7890</p>
-          <p>evlocator@gmail.com</p>
-        </Stack>
+        {!smallLaptop && (
+          <Stack className="my-stack">
+            <p>Links</p>
+            <p>Home</p>
+            <p>Support</p>
+            <p>About </p>
+          </Stack>
+        )}
+
+        {!tabSize && (
+          <>
+            <Stack className="my-stack">
+              <p>Services</p>
+              <p>Insurance</p>
+              <p>Legal</p>
+              <p>Site Map</p>
+            </Stack>
+
+            <Stack className="my-stack">
+              <p>About </p>
+              <p>Accessability</p>
+              <p>Enviornment</p>
+              <p>Branches</p>
+            </Stack>
+
+            <Stack className="my-stack">
+              <p>Contact us</p>
+              <p>(+91) 123-456-7890</p>
+              <p>evlocator@gmail.com</p>
+            </Stack>
+          </>
+        )}
         <Stack className="download-app-stack my-stack">
           <p>Download App</p>
           <img

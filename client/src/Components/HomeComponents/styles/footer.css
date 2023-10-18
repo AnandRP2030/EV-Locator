@@ -72,7 +72,7 @@
 }
 
 .my-stack {
-  padding-left: 9.5%;
+  /* padding-left: 9.5%; */
   box-sizing: border-box;
 }
 
@@ -113,4 +113,16 @@
 
 .footer-credit > div p:hover {
   color: yellow;
+}
+
+
+/* media query  */
+@media screen and (max-width: 1000px) {
+  .my-footer {
+    height: 260px;
+    padding: 40px 14px;
+  }
+  .footer-mail {
+    width: 80%;
+  }
 }

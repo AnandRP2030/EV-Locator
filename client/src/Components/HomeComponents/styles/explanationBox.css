@@ -2,7 +2,7 @@
     width: 269px;
     height: 191px;
     background-color: #fff1d8;
-    margin-right: 62px;
+    /* margin-right: 62px; */
     border-radius: 5px;
     border: 1px solid black;
     box-shadow: 2px 2px;
@@ -32,4 +32,10 @@
 }
 .explanation-box>p {
     font-size: 12px;
+}
+
+@media screen and (max-width: 1000px) {
+    .explanation-box {
+        margin: 0;
+    }
 }
