@@ -8,12 +8,12 @@ import {
   Toast,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-
+import { useState} from "react";
 import axios from "axios";
 import "dotenv";
 import { useContext } from "react";
 import { LoginContext } from "../Context/LoginContext";
+import { useMediaQuery } from "react-responsive";
 import "./styles/login.css";
 
 const Login = () => {
@@ -27,21 +27,9 @@ const Login = () => {
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
   const { setIsUserLogin, setUserInfo } = useContext(LoginContext);
-  const [pcSize, setPcSize] = useState(true);
 
-  const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setPcSize(false);
-    } else {
-      setPcSize(true);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+  const tabSize = useMediaQuery({
+    query: "(max-width: 768px)",
   });
 
   const handleChanges = (e) => {
@@ -143,7 +131,7 @@ const Login = () => {
         ></Container>
 
         <Container fluid className="login-container">
-          {pcSize && (
+          {!tabSize && (
             <Container className="img-section login-img-section">
               <Image
                 src="https://www.omanobserver.om/omanobserver/uploads/images/2022/03/21/1948788.jpg"
@@ -201,7 +189,7 @@ const Login = () => {
               </Button>
             </Form>
 
-            {pcSize && (
+            {!tabSize && (
               <div>
                 <Stack className="footer" direction="horizontal" gap={3}>
                   <div>Copyright Policy</div>

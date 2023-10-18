@@ -11,6 +11,7 @@ import {
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
 import "./styles/login.css";
 import "dotenv";
 
@@ -26,8 +27,9 @@ const Signup = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
-  const [pcSize, setPcSize] = useState(true);
-
+  const tabSize = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const handleChanges = (e) => {
@@ -53,21 +55,6 @@ const Signup = () => {
         break;
     }
   };
-
-  const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setPcSize(false);
-    } else {
-      setPcSize(true);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -144,7 +131,7 @@ const Signup = () => {
       <Container fluid className="login-page">
         <Container fluid className="trapezoid-box"></Container>
         <Container fluid className="login-container">
-          {pcSize && (
+          {!tabSize && (
             <Container className="img-section">
               <Image
                 src="https://www.cyient.com/hubfs/MicrosoftTeams-image_%2811%29.png"
@@ -245,10 +232,10 @@ const Signup = () => {
               </p>
               <Button type="submit" className="login-btn">
                 Signup
-              </Button> 
+              </Button>
             </Form>
 
-            {pcSize && (
+            {tabSize && (
               <div>
                 <Stack className="footer" direction="horizontal" gap={3}>
                   <div>Copyright Policy</div>
