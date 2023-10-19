@@ -1,12 +1,9 @@
 .ev-network {
   margin-top: 50px;
-  margin-bottom: 20px;
   text-align: center;
   padding-top: 50px;
   box-sizing: border-box;
   background-color: #ebeff1;
-  /* background-color: red; */
-  margin-bottom: 50px;
 }
 .ev-network > h1 {
   color: black;

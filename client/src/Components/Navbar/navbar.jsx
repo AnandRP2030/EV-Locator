@@ -16,12 +16,12 @@ const NavbarComponent = () => {
   const { isUserLogin, setIsUserLogin } = useContext(LoginContext);
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
-  const isLaptop = useMediaQuery({
-    query: "(min-width: 1224px)",
-  });
-  const isTab = useMediaQuery({
-    query: "(min-width: 768px)",
-  });
+  // const isLaptop = useMediaQuery({
+  //   query: "(min-width: 1224px)",
+  // });
+  // const isTab = useMediaQuery({
+  //   query: "(min-width: 768px)",
+  // });
   const isMobile = useMediaQuery({
     query: "(max-width: 570px)",
   });
@@ -68,7 +68,7 @@ const NavbarComponent = () => {
           </Navbar.Brand>
         </Nav>
 
-        <Nav className="nav-right">
+        <Nav className={`nav-right ${isMobile && isUserLogin && "nav-right-login"}`}>
           {!isMobile ? (
             <>
               <div className="find-stations" onClick={redirectStation}>
@@ -104,10 +104,31 @@ const NavbarComponent = () => {
               )}
             </>
           ) : (
-            <Button onClick={redirectLogin} className="login-btn-2">
-              {" "}
-              Log in
-            </Button>
+            <>
+              {isUserLogin ? (
+                <>
+                  <div className="find-stations" onClick={redirectStation}>
+                    Find stations{" "}
+                    <FaChargingStation className="charging-icon" />
+                  </div>
+                  <Nav.Link>
+                    <Button onClick={userLogout} className="login-btn-2">
+                      {" "}
+                      Log out
+                    </Button>
+                  </Nav.Link>
+                </>
+              ) : (
+                <Stack direction="horizontal" className="nav-btns">
+                  <Nav.Link>
+                    <Button onClick={redirectLogin} className="login-btn-2">
+                      {" "}
+                      Log in
+                    </Button>
+                  </Nav.Link>
+                </Stack>
+              )}
+            </>
           )}
         </Nav>
       </Navbar>
