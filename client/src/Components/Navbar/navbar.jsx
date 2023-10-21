@@ -40,6 +40,10 @@ const NavbarComponent = () => {
     navigate("/");
   };
 
+  const redirectProfile = () => {
+    navigate("/profile");
+  };
+
   const userLogout = () => {
     localStorage.removeItem("user-data");
     localStorage.removeItem("Login");
@@ -68,7 +72,11 @@ const NavbarComponent = () => {
           </Navbar.Brand>
         </Nav>
 
-        <Nav className={`nav-right ${isMobile && isUserLogin && "nav-right-login"}`}>
+        <Nav
+          className={`nav-right ${
+            isMobile && isUserLogin && "nav-right-login"
+          }`}
+        >
           {!isMobile ? (
             <>
               <div className="find-stations" onClick={redirectStation}>
@@ -76,12 +84,23 @@ const NavbarComponent = () => {
               </div>
 
               {isUserLogin ? (
-                <Nav.Link>
-                  <Button onClick={userLogout} className="login-btn-2">
-                    {" "}
-                    Log out
-                  </Button>
-                </Nav.Link>
+                <>
+                  <Nav.Link>
+                    <div
+                      onClick={redirectProfile}
+                    >
+                      {" "}
+                      Profile
+                    </div>
+                  </Nav.Link>
+
+                  <Nav.Link>
+                    <Button onClick={userLogout} className="login-btn-2">
+                      {" "}
+                      Log out
+                    </Button>
+                  </Nav.Link>
+                </>
               ) : (
                 <Stack direction="horizontal" className="nav-btns">
                   <Nav.Link>

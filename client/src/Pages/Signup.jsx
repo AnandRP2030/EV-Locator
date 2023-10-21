@@ -171,7 +171,7 @@ const Signup = () => {
                 >
                   <option value="user">User</option>
                   <option value="ev-station">EV Station</option>
-                  <option value="admin">Admin</option>
+                  {/* <option value="admin">Admin</option> */}
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-2" controlId="formBasicEmail">

@@ -10,6 +10,7 @@ import NavbarComponent from "./Components/Navbar/navbar";
 import ScreenTest from "./Pages/screen-size";
 import HomeWelcome from "./Components/HomeComponents/HomeWelcome";
 import Footer from "./Components/HomeComponents/footer";
+import ProfilePage from "./Pages/Profile";
 import "./App.css";
 
 function App() {
@@ -33,11 +34,11 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/stations" element={<Station />}></Route>
+            <Route path="/profile" element={<ProfilePage />}></Route>
             <Route path="/navbar" element={<NavbarComponent />} />
             <Route path="/test" element={<ScreenTest />} />
             <Route path="/home-wel" element={<HomeWelcome />} />
             <Route path="/footer" element={<Footer />} />
-
             <Route />
             <Route
               path="/*"
