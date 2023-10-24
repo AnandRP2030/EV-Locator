@@ -1,4 +1,3 @@
-const express = require("express");
 const { UserModel } = require("../Models/user.model.js");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const jwt = require("jsonwebtoken");
@@ -23,7 +22,7 @@ const registerUser = async (req, res) => {
       phoneNumber,
       password,
       role,
-    });
+    }); 
     await newUser.save();
     return res.status(201).json({ message: "Registration Completed" });
   } catch (error) {

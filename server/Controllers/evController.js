@@ -1,5 +1,3 @@
-const express = require("express");
-const evRouter = express.Router();
 const { EvModel } = require("../Models/ev.model.js");
 
 const getAllStationsFun = async () => {
@@ -99,7 +97,6 @@ const bookSlot = async (req, res) => {
   try {
     const { id } = req.params;
     const evStation = await EvModel.findById(id);
-    console.log("iid", evStation);
     if (!evStation) {
       return res.status(404).send({ message: "EV Station Not Found" });
     }
@@ -116,6 +113,7 @@ const bookSlot = async (req, res) => {
         .send({
           message: `${evStation.stationName} Station is Not Available Right Now.`,
         });
+
     }
   } catch (error) {
     return res.status(500).send("Server Error");
