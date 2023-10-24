@@ -16,7 +16,7 @@ const Home = () => {
       setUserInfo(userData);
       setIsUserLogin(true);
     }
-  }, []);
+  }, []); 
   return (
     <div className="home-page-container">
       <NavbarComponent />

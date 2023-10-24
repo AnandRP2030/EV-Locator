@@ -1,9 +1,14 @@
 import Table from "react-bootstrap/Table";
 import PropTypes from "prop-types";
-
+import {useNavigate} from 'react-router-dom';
 import "./stationTable.css";
 
-const StationTable = ({ allStations, deleteStation, bookSlot }) => {
+const StationTable = ({ allStations, deleteStation, bookSlot, role }) => {
+  const navigate = useNavigate();
+  const handleBookslot = (id) => {
+    navigate('/book-slot/'+id);
+    
+  }
   return (
     <div className="ev-table-container">
       <Table className="" striped bordered hover>
@@ -13,10 +18,9 @@ const StationTable = ({ allStations, deleteStation, bookSlot }) => {
             <th>Station Name</th>
             <th>Location</th>
             <th>Total Ports</th>
-            <th>Available Ports</th>
             <th>Rate/hr</th>
-            <th>Book Slot</th>
-            <th>Delete Station</th>
+            <th>Book Slots</th>
+            {role === "admin" && <th> Delete Station</th>}
           </tr>
         </thead>
         <tbody>
@@ -27,28 +31,30 @@ const StationTable = ({ allStations, deleteStation, bookSlot }) => {
                 <td>{elem.stationName}</td>
                 <td>{elem.location}</td>
                 <td>{elem.totalPorts}</td>
-                <td>{elem.availablePorts}</td>
                 <td>{elem.pricePerHour}</td>
                 <td>
                   <button
                     onClick={() => {
-                      bookSlot(elem._id);
+                      // bookSlot(elem._id);
+                      handleBookslot(elem._id)
                     }}
                     className="book-slot-btn"
                   >
                     Book Slots
                   </button>
                 </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      deleteStation(elem._id);
-                    }}
-                    className="delete-station-btn"
-                  >
-                    Delete Station
-                  </button>
-                </td>
+                {role === "admin" && (
+                  <td>
+                    <button
+                      onClick={() => {
+                        deleteStation(elem._id);
+                      }}
+                      className="delete-station-btn"
+                    >
+                      Delete Station
+                    </button>
+                  </td>
+                )}
               </tr>
             );
           })}
@@ -62,6 +68,7 @@ StationTable.propTypes = {
   allStations: PropTypes.array,
   deleteStation: PropTypes.func,
   bookSlot: PropTypes.func,
+  role: PropTypes.string,
 };
 
 export default StationTable;

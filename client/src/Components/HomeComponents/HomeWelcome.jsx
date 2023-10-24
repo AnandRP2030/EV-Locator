@@ -11,7 +11,6 @@ const HomeWelcome = () => {
     query: "(max-width: 768px)",
   });
 
-  console.log("isTab", isTab);
 
   return (
     <div className="home-welcome-container">

@@ -12,10 +12,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
+import { useLocation } from "react-router-dom";
 import "./styles/login.css";
 import "dotenv";
 
 const Signup = () => {
+  let location = useLocation();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [role, setRole] = useState("user");
@@ -27,10 +29,21 @@ const Signup = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
+  const [isAdminActive, setIsAdminActive] = useState(false);
+
   const tabSize = useMediaQuery({
     query: "(max-width: 768px)",
   });
+
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+  useEffect(() => {
+    console.log("path name", location.pathname);
+    if (location.pathname === "/admin/signup") {
+      setIsAdminActive(true);
+      setRole("admin");
+    }
+  }, [location.pathname]);
 
   const handleChanges = (e) => {
     const value = e.target.value;
@@ -54,6 +67,14 @@ const Signup = () => {
       default:
         break;
     }
+  };
+
+  const navigateLogin = () => {
+    if (isAdminActive) {
+      navigate("/admin/login");
+      return;
+    }
+    navigate("/login");
   };
 
   const handleSubmit = (event) => {
@@ -162,18 +183,21 @@ const Signup = () => {
                   Looks Good {name}!.
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicSelect">
-                <Form.Select
-                  size="sm"
-                  onChange={handleChanges}
-                  value={role}
-                  name="role"
-                >
-                  <option value="user">User</option>
-                  <option value="ev-station">EV Station</option>
-                  {/* <option value="admin">Admin</option> */}
-                </Form.Select>
-              </Form.Group>
+              {!isAdminActive && (
+                <Form.Group className="mb-2" controlId="formBasicSelect">
+                  <Form.Select
+                    size="sm"
+                    onChange={handleChanges}
+                    value={role}
+                    name="role"
+                  >
+                    <option value="user">User</option>
+                    <option value="ev-station">EV Station</option>
+                    {/* <option value="admin">Admin</option> */}
+                  </Form.Select>
+                </Form.Group>
+              )}
+
               <Form.Group className="mb-2" controlId="formBasicEmail">
                 <Form.Control
                   required
@@ -228,7 +252,7 @@ const Signup = () => {
               </Form.Group>
               <p className="bottom-caption">
                 Already have an account?{" "}
-                <span onClick={() => navigate("/login")}> Login </span>
+                <span onClick={navigateLogin}> Login </span>
               </p>
               <Button type="submit" className="login-btn">
                 Signup

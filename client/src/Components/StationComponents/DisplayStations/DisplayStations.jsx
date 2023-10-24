@@ -14,6 +14,7 @@ const Displaystations = () => {
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
   const [showModel, setShowModel] = useState(false);
+  const [role, setRole] = useState("user");
   const getAllStations = () => {
     setSearchStation("");
     axios.get(`${BASE_URL}/ev/all-stations`).then((res) => {
@@ -26,7 +27,22 @@ const Displaystations = () => {
     getAllStations();
   }, []);
 
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user-data")) || null;
+    if (userData) {
+      setRole(userData.role);
+    }
+  }, []);
+
   const bookSlot = (id) => {
+    
+    if (role !== "user") {
+      console.log("role if", role);
+      setShowAlert(true);
+      setToastColor("warning");
+      setAlertMsg("You are not allowed to book slots");
+      return; 
+    }
     try {
       axios
         .patch(`${BASE_URL}/ev/book-slot/${id}`)
@@ -114,7 +130,9 @@ const Displaystations = () => {
         <div className="station-table-container">
           <div className="table-heading-container">
             <h1>List of Charging Stations</h1>
-            <button onClick={handleAddStation}>Add New Station</button>
+            {role !== "user" && (
+              <button onClick={handleAddStation}>Add New Station</button>
+            )}
           </div>
           <div className="table-top-buttons">
             <div onClick={getAllStations}>All Stations</div>
@@ -158,6 +176,7 @@ const Displaystations = () => {
               allStations={allStations}
               deleteStation={deleteStation}
               bookSlot={bookSlot}
+              role={role}
             />
           )}
           <ToastContainer position="top-center">

@@ -6,7 +6,6 @@ const YellowBanner = () => {
   const isTab = useMediaQuery({
     query: "(max-width: 1008px)",
   });
-  console.log("isTab", isTab);
   return (
     <div className="yellow-banner banner-animation">
       <div>500+ Users activated</div>

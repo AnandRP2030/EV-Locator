@@ -80,7 +80,7 @@
 }
 
 .user-details .user-title {
-  color: #bababb;
+  color: #8b8585;
 }
 .user-details .user-data {
   color: black;
@@ -93,6 +93,9 @@
   width: 100%;
   height: 141px;
   padding: 0.5rem;
+}
+.contact-links-container button {
+  border: none;
 }
 .contact-links-container > div {
   display: flex;

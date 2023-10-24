@@ -19,7 +19,6 @@ const Footer = () => {
   const tabSize = useMediaQuery({
     query: "(max-width: 768px)",
   });
-  console.log("lap", smallLaptop);
   return (
     <div className="my-footer">
       <div>

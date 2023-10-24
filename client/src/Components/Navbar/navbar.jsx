@@ -10,6 +10,8 @@ import { LoginContext } from "../../Context/LoginContext";
 import { useContext } from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
+import { CgProfile } from "react-icons/cg";
+import {FcBusinessman} from "react-icons/fc";
 import "./navbar.css";
 
 const NavbarComponent = () => {
@@ -25,9 +27,6 @@ const NavbarComponent = () => {
   const isMobile = useMediaQuery({
     query: "(max-width: 570px)",
   });
-
-  // console.log("tab", isTab, "lap", isLaptop, "mobile", isMobile);
-  console.log("mobile", isMobile);
 
   const redirectSignup = () => {
     navigate("/signup");
@@ -86,11 +85,10 @@ const NavbarComponent = () => {
               {isUserLogin ? (
                 <>
                   <Nav.Link>
-                    <div
-                      onClick={redirectProfile}
-                    >
+                    <div onClick={redirectProfile}>
                       {" "}
                       Profile
+                      {/* <FcBusinessman/> */}
                     </div>
                   </Nav.Link>
 

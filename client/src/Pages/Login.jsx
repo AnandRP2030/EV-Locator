@@ -8,15 +8,17 @@ import {
   Toast,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import "dotenv";
 import { useContext } from "react";
 import { LoginContext } from "../Context/LoginContext";
 import { useMediaQuery } from "react-responsive";
+import { useLocation } from "react-router-dom";
+import "dotenv";
 import "./styles/login.css";
 
 const Login = () => {
+  const location = useLocation();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -27,11 +29,16 @@ const Login = () => {
   const [alertMsg, setAlertMsg] = useState("");
   const [toastColor, setToastColor] = useState("dark");
   const { setIsUserLogin, setUserInfo } = useContext(LoginContext);
-
+  const [isAdminActive, setIsAdminActive] = useState(false);
   const tabSize = useMediaQuery({
     query: "(max-width: 768px)",
   });
 
+  useEffect(() => {
+    if (location.pathname === "/admin/login") {
+      setIsAdminActive(true);
+    }
+  }, [location.pathname]);
   const handleChanges = (e) => {
     const value = e.target.value;
 
@@ -61,6 +68,14 @@ const Login = () => {
     if (form.checkValidity() === true && email && password) {
       sendToServer();
     }
+  };
+
+  const navigateSignup = () => {
+    if (isAdminActive) {
+      navigate("/admin/signup");
+      return;
+    }
+    navigate("/signup");
   };
 
   const sendToServer = () => {
@@ -180,8 +195,7 @@ const Login = () => {
                 />
               </Form.Group>
               <p className="bottom-caption">
-                Need an account?{" "}
-                <span onClick={() => navigate("/signup")}> Sign up </span>
+                Need an account? <span onClick={navigateSignup}> Sign up </span>
               </p>
 
               <Button type="submit" className="login-btn">
