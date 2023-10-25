@@ -7,8 +7,8 @@ const StationTable = ({ allStations, deleteStation, bookSlot, role }) => {
   const navigate = useNavigate();
   const handleBookslot = (id) => {
     navigate('/book-slot/'+id);
-    
   }
+  
   return (
     <div className="ev-table-container">
       <Table className="" striped bordered hover>

@@ -117,7 +117,7 @@ const Signup = () => {
           setAlertMsg("Registration completed.");
           setTimeout(() => {
             navigate("/login");
-          }, 24000);
+          }, 2400);
         } else {
           console.log("error: => ", response);
         }

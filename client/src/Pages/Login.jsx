@@ -88,9 +88,10 @@ const Login = () => {
       .then((response) => {
         if (response.status === 200) {
           const { token } = response.data;
-          const { email, name, phoneNumber, role } = response.data.user;
+          const { email, name, phoneNumber, role, _id } = response.data.user;
           const userLoginData = {
             token,
+            _id,
             email,
             name,
             phoneNumber,

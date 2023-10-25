@@ -40,15 +40,22 @@ const MyModel = ({
     ) {
       return;
     }
-    const stationData = {
-      stationName,
-      location,
-      totalPorts,
-      availablePorts,
-      pricePerHour,
-    };
+    const userData = JSON.parse(localStorage.getItem("user-data")) || null;
+    if (userData?._id) {
+      const stationData = {
+        stationName,
+        location,
+        totalPorts,
+        availablePorts,
+        pricePerHour,
+        ownerId: userData._id,
+      };
 
-    sendToServer(stationData);
+      console.log("stationData", stationData);
+      sendToServer(stationData);
+    } else {
+      console.log("Please Login first");
+    }
   };
   const sendToServer = (stationData) => {
     try {
