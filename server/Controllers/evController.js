@@ -7,9 +7,10 @@ const getAllStationsFun = async () => {
 
 const createStation = async (req, res) => {
   try {
-    const { stationName, location, availablePorts, totalPorts, pricePerHour } =
+    const { stationName, location, availablePorts, totalPorts, pricePerHour, ownerId } =
       req.body;
     if (
+      !ownerId ||
       !stationName ||
       !location ||
       !availablePorts ||
@@ -24,9 +25,10 @@ const createStation = async (req, res) => {
       availablePorts,
       totalPorts,
       pricePerHour,
+      ownerId,
     });
     await newEvStation.save();
-    res.status(201).send({ message: "New Station created successfully." });
+    res.status(201).send({ message: "New Station created successfully." , newEvStation });
   } catch (error) {
     return res.status(500).send("Server Error");
   }

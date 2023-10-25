@@ -37,7 +37,6 @@ const loginUser = async (req, res) => {
       return res.status(404).send({ error: "Please fill all fields" });
     }
     const user = await UserModel.findOne({ email });
-
     if (!user) {
       return res
         .status(404)

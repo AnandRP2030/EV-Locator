@@ -19,8 +19,12 @@ const evSchema = new mongoose.Schema({
   pricePerHour: {
     type: Number,
     required: true,
-  }
+  },
+  ownerId: {
+    type: String,
+    required: true,
+  },
 });
 
 const EvModel = mongoose.model("EvModel", evSchema);
-module.exports = {EvModel};
+module.exports = { EvModel };
