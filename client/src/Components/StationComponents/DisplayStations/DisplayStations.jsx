@@ -16,32 +16,40 @@ const Displaystations = () => {
   const [showModel, setShowModel] = useState(false);
   const [role, setRole] = useState("user");
   const getAllStations = () => {
+    const userData = JSON.parse(localStorage.getItem("user-data")) || null;
+
     setSearchStation("");
     axios.get(`${BASE_URL}/ev/all-stations`).then((res) => {
-      const reversedData = res.data.data.reverse();
+      let visibleStations = res.data.data;
+      if (userData.role === "ev-station") {
+        visibleStations = res.data.data.filter((elem) => {
+          return elem.ownerId === userData._id;
+        });
+      }
+      const reversedData = visibleStations.reverse();
       setAllStations(reversedData);
-    });
+    }).catch((err) => {
+      console.log("error on get all stations", err);
+    })
   };
 
   useEffect(() => {
-    getAllStations();
-  }, []);
-
-  useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user-data")) || null;
+    console.log("udd", userData);
     if (userData) {
       setRole(userData.role);
+      getAllStations();
+    } else {
+      console.log("Login first");
     }
   }, []);
 
   const bookSlot = (id) => {
-    
     if (role !== "user") {
-      console.log("role if", role);
       setShowAlert(true);
       setToastColor("warning");
       setAlertMsg("You are not allowed to book slots");
-      return; 
+      return;
     }
     try {
       axios

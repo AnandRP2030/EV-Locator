@@ -1,3 +1,6 @@
+.toast-msg {
+  color: white;
+}
 .book-slot-container {
   margin-top: 60px;
   max-width: 100%;
@@ -44,7 +47,7 @@ td {
 
 .payment-form-container {
   width: 90%;
-  height: 280px;
+  height: 350px;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
@@ -55,7 +58,7 @@ td {
 .station-details-1 {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 17px;
 }
 
 .station-details-2 {
@@ -64,11 +67,11 @@ td {
 }
 
 .schedule-div {
-    display: flex;
-    flex-direction: column;
-    height: 107px;
-    justify-content: space-between;
-    margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 190px;
+  justify-content: space-between;
+  margin-top: 16px;
 }
 .schedule-div button {
   width: 30%;
@@ -76,10 +79,16 @@ td {
   color: white;
   border-radius: 5px;
 }
-.schedule-div input {
-  width: 30%;
+.schedule-div input,
+.schedule-div select {
+  width: 32%;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  padding-left: 6px;
+  padding-right: 5px;
+  box-sizing: border-box;
+  border: none;
 }
-
 .pay-btn {
   margin-left: auto;
   margin-right: auto;
@@ -109,13 +118,11 @@ td {
   justify-content: space-between;
 }
 
-
-
 .avail-msg {
-    color: green;
-    font-weight: 600;
+  color: green;
+  font-weight: 600;
 }
 .not-avail-msg {
-    color: red;
-    font-weight: 600;
+  color: red;
+  font-weight: 600;
 }

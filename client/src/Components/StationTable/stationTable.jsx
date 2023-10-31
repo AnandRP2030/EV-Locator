@@ -1,14 +1,14 @@
 import Table from "react-bootstrap/Table";
 import PropTypes from "prop-types";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "./stationTable.css";
 
 const StationTable = ({ allStations, deleteStation, bookSlot, role }) => {
   const navigate = useNavigate();
   const handleBookslot = (id) => {
-    navigate('/book-slot/'+id);
-  }
-  
+    navigate("/book-slot/" + id);
+  };
+
   return (
     <div className="ev-table-container">
       <Table className="" striped bordered hover>
@@ -19,8 +19,9 @@ const StationTable = ({ allStations, deleteStation, bookSlot, role }) => {
             <th>Location</th>
             <th>Total Ports</th>
             <th>Rate/hr</th>
-            <th>Book Slots</th>
-            {role === "admin" && <th> Delete Station</th>}
+            {role !== "ev-station" && <th>Book Slots</th>}
+
+            {role !== "user" && <th> Delete Station</th>}
           </tr>
         </thead>
         <tbody>
@@ -32,18 +33,20 @@ const StationTable = ({ allStations, deleteStation, bookSlot, role }) => {
                 <td>{elem.location}</td>
                 <td>{elem.totalPorts}</td>
                 <td>{elem.pricePerHour}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      // bookSlot(elem._id);
-                      handleBookslot(elem._id)
-                    }}
-                    className="book-slot-btn"
-                  >
-                    Book Slots
-                  </button>
-                </td>
-                {role === "admin" && (
+                {role !== "ev-station" && (
+                  <td>
+                    <button
+                      onClick={() => {
+                        handleBookslot(elem._id);
+                      }}
+                      className="book-slot-btn"
+                    >
+                      Book Slots
+                    </button>
+                  </td>
+                )}
+
+                {role !== "user" && (
                   <td>
                     <button
                       onClick={() => {
