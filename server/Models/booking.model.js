@@ -10,8 +10,17 @@ const bookingSchema = mongoose.Schema({
     ref: "EvModel",
     required: true,
   },
+  
   bookingDate: {
     type: Date,
+    required: true,
+  },
+  vehicleNumber: {
+    type: String,
+    required: true,
+  },
+  vehicleType: {
+    type: String,
     required: true,
   },
 });
